@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 {% load static %}
 {% block content %}
 <section>
@@ -26,7 +27,7 @@
             <!--End col-->
             <!--Begin col-->
             <div class="column">
-                <img src="/restaurant/static/img/menu_items/{{menu_item.name}}.jpg" alt="{{ menu_item.name}}" />
+                <img src="/static/img/menu_items/{{ menu_item.name|remove_whitespace }}.jpg" alt="{{ menu_item.name }}" />
             </div>
             <!--End col-->
         </div>
