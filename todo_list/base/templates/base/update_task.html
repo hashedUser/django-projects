@@ -1,0 +1,11 @@
+{% load static %}
+<head>
+    <link rel="shortcut icon" href="{% static 'img/to-do-list.png' %}" type="image/png">
+</head>
+<h3>Task Form</h3>
+<a href="{% url 'tasklist'%}">Go Back</a>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>

@@ -1,0 +1,31 @@
+{% load static %}
+<head>
+    <link rel="shortcut icon" href="{% static 'img/to-do-list.png' %}" type="image/png">
+</head>
+<p>{{request.user}}</p>
+<hr>
+
+<h2>My To Do List</h2>
+
+<br>
+<a href="{% url 'taskcreate' %}" style="text-decoration: none; color: blue;">Add Item</a>
+<br><br><br>
+<table>
+    <tr>
+        <th>Item</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td>{{task.title}}</td>
+        <td><a href="{% url 'task' task.id %}">View</a></td>
+        <td><a href="{% url 'taskupdate' task.id %}">Edit</a></td>
+        <td><a href="{% url 'taskdelete' task.id %}">Delete</a></td>
+
+    </tr>
+    {% empty %}
+    <h3>No Items in List</h3>
+    {% endfor %}
+
+</table>

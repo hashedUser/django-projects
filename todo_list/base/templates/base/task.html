@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'img/to-do-list.png' %}" type="image/png">
+    <title>Task View</title>
+    <!-- Add Font Awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-wvfXpqpZZVQGKKG+5zZCrYI/4lZm5bsA7j1rC3Qx1HzM/NL3t/v8E+46l5KtJkk" crossorigin="anonymous">
+</head>
+<body>
+<h2><a href="{% url 'tasklist'%}" style="text-decoration: none;">Go Back</a></h2>
+<h1>Task: {{task}}</h1>
+<h2>{{task.description}}</h2>
+
+<!-- Your other HTML content goes here -->
+
+</body>
+</html>

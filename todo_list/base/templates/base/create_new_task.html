@@ -1,0 +1,14 @@
+{% load static %}
+<head>
+    <link rel="shortcut icon" href="{% static 'img/to-do-list.png' %}" type="image/png">
+</head>
+<h3>Create New Task</h3>
+<br>
+
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+<br><br>
+<a href="{% url 'tasklist' %}" style="text-decoration: none;">Cancel</a>
