@@ -12,6 +12,19 @@ from rest_framework.decorators import api_view, renderer_classes
 def menu(request):
     if request.method == 'GET':
         menu = Menu.objects.select_related('category').all()
+        category_name = request.query_params.get('category')
+        to_price = request.query_params.get('to_price')
+        search = request.query_params.get('search')
+
+        if category_name:
+            menu = menu.filter(category__title=category_name)
+
+        if to_price:
+            menu = menu.filter(price=to_price)
+
+        if search:
+            menu = menu.filter(title__icontains=search)
+
         serialized_menu = MenuSerializer(menu, many=True, context={'request':request})
         return Response(serialized_menu.data)
     if request.method == 'POST':
