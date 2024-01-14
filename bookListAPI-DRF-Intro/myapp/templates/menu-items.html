@@ -1,25 +1,62 @@
-<!DOCTYPE html> 
+<!-- AI GENERATED HTML AND CSS -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Menu Items</title>
+    <meta charset="UTF-8">
+    <title>Menu Items</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 40px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+
+        .price-column {
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
-    <table width="100%" style="text-align: left;">
-        <tr>
-            <th>Item</th> <!-- item column heading -->
-            <th>Price</th> <!-- price column heading -->
-            <th>Price After Tax</th> <!-- price after tax column heading -->
-            <th>Stock</th> <!-- stock column heading -->
-        </tr>
-        {% for item in data %}
-        <tr>
-            <td>{{ item.title }}</td>
-            <td>${{ item.price }}</td>
-            <td>{{ item.price_after_tax }}</td>
-            <td>{{ item.stock }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <h1>Menu Items</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th class="price-column">Price</th>
+                <th class="price-column">Price After Tax</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td class="price-column">${{ item.price }}</td>
+                <td class="price-column">{{ item.price_after_tax }}</td>
+                <td>{{ item.stock }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
