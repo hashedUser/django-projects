@@ -15,6 +15,7 @@ def menu(request):
         category_name = request.query_params.get('category')
         to_price = request.query_params.get('to_price')
         search = request.query_params.get('search')
+        ordering = request.query_params.get('ordering')
 
         if category_name:
             menu = menu.filter(category__title=category_name)
@@ -24,6 +25,9 @@ def menu(request):
 
         if search:
             menu = menu.filter(title__icontains=search)
+
+        if ordering:
+            menu = menu.order_by(ordering)
 
         serialized_menu = MenuSerializer(menu, many=True, context={'request':request})
         return Response(serialized_menu.data)
@@ -47,6 +51,7 @@ def category_detail(request,pk):
     category = get_object_or_404(Category, pk=pk)
     serialized_category = CategorySerializer(category)
     return Response(serialized_category.data)
+
 
 # Trying out renderers which are not included in the default. (Default are JSONRenderer and HTMLRenderer)
 @api_view()
