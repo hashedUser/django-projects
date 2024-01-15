@@ -4,12 +4,13 @@ from .serializers import MenuSerializer, CategorySerializer
 
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from rest_framework.decorators import api_view, renderer_classes, permission_classes, throttle_classes
 
 
+from django.contrib.auth.models import User, Group
 from django.core.paginator import Paginator, EmptyPage
 from django.shortcuts import render, get_object_or_404
 
@@ -110,3 +111,21 @@ def throttle_check(response):
 @throttle_classes([UserRateThrottle])
 def throttle_check_auth(request):
     return Response({"message":"message for the logged in users only!"})
+
+
+# Assign a particular user to managers group
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def managers(request):
+    username = request.data.get['username']
+    if username:
+        user = get_object_or_404(User, username=username)
+        managers = Group.objects.get(name="Manager")
+        if request.method == 'GET':
+            managers.user_set.add(user)
+        elif request.method == 'DELETE':
+            managers.user_set.remove(user)
+            
+        return Response({"message":"ok"})
+    
+    return Response({"message":"error"}, status.HTTP_400_BAD_REQUEST)
