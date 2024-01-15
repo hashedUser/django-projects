@@ -9,5 +9,7 @@ urlpatterns = [
     path('menu_items', views.menu_items),
     path('token-auth/', obtain_auth_token),
     path('manager-view', views.manager_view),
+    path('throttle-check', views.throttle_check),
+    path('throttle-check-auth', views.throttle_check_auth),
     path('category/<int:pk>',views.category_detail, name='category-detail'),
 ]

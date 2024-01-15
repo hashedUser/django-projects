@@ -6,7 +6,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework.decorators import api_view, renderer_classes, permission_classes
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from rest_framework.decorators import api_view, renderer_classes, permission_classes, throttle_classes
 
 
 from django.core.paginator import Paginator, EmptyPage
@@ -94,3 +95,18 @@ def manager_view(request):
         return Response({"message":"Only Manager can see this"})
     else:
         return Response({"message":"You are not authorized"}, 403)
+    
+
+# Throttling for anonymous user
+@api_view()
+@throttle_classes([AnonRateThrottle])
+def throttle_check(response):
+    return Response({"message":"successful"})
+
+
+# Throttling for authenticated user
+@api_view()
+@permission_classes([IsAuthenticated])
+@throttle_classes([UserRateThrottle])
+def throttle_check_auth(request):
+    return Response({"message":"message for the logged in users only!"})
